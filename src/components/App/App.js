@@ -1,16 +1,19 @@
 import React from 'react';
+import Spotify from '../../util/Spotify';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { SearchResults } from '../SearchResults/SearchResults';
 import { Playlist } from '../Playlist/Playlist';
 import './App.css';
 
+Spotify.getAccessToken();
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [{ id:'fakeid_1', name: 'Are U Dead Yet?', artist: 'Children of Bodom', album: 'Are U Dead Yet?' }],
-      playlistName: "Jeff's mix",
-      playlistTracks: [{ id:'fakeid_2', name: 'Alligator', artist: 'Of Monsters and Men', album: 'Fever Dream' }]
+      searchResults: [],
+      playlistName: 'New Playlist',
+      playlistTracks: []
     }
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -42,14 +45,19 @@ class App extends React.Component {
   }
 
   savePlaylist() {
-    const trackURIs = this.state.playlistTracks.map(track => track.uri);
+    const trackURIs = this.state.playlistTracks.map(track => track.URI);
+    Spotify.savePlaylist(this.state.playlistName, trackURIs)
   }
 
-  search(searchTerm) {
-    console.log(searchTerm)
+  search (searchTerm) {
+    Spotify.search(searchTerm)
+    .then(searchResults => this.setState({
+      searchResults
+    }));
   }
 
   render() {
+    console.log(this.state.playlistTracks)
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>

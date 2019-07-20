@@ -11,7 +11,8 @@ export class SearchBar extends React.Component {
     this.handleTermChange = this.handleTermChange.bind(this);
   }
 
-  search() {
+  search(e) {
+    e.preventDefault();
     this.props.onSearch(this.state.searchTerm);
   }
 
@@ -25,7 +26,7 @@ export class SearchBar extends React.Component {
     return (
       <div className="SearchBar">
         <input value={this.state.searchTerm} onChange={this.handleTermChange} placeholder="Enter A Song, Album, or Artist" />
-        <button className="SearchButton">SEARCH</button>
+        <button onClick={this.search} className="SearchButton">SEARCH</button>
       </div>
     )
   }

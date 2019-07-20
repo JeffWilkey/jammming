@@ -1,5 +1,14 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Environment
+Add environment.json file to /src directory with the following keys:
+```
+{
+  "clientId": "yourSpotifyClientId",
+  "redirectURI": "http://yourredirecturl.com"
+}
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
